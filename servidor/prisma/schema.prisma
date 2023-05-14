@@ -1,0 +1,22 @@
+// conexões
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// Tabelas Banco de dados 
+
+model doceria {
+  id   String @id @default(uuid())
+  nome String
+  tipodoce String
+  tiposalgado String
+  bebida String
+  tamanhodoce String
+  datahorario DateTime@default(now())
+  observacao String
+}

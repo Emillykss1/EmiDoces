@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<link rel="manifest" href="manifest.json">
+
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+	<script src="./index.js" defer></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <meta name="theme-color" content="#3c7a62">
+    <meta name = "description" content="Doceria Emi">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="cor em hexadecimal">  
+
+
+	<link
+    rel="shortcut icon"
+    href="assets\css\img\emidoces.png"
+    type="image/x-icon"/>
+
+
+	<title>Emi Doces</title>
+</head>
+
+<body>
+	<div claass="form-image">
+		<center><img src="assets\css\img\emidoces.png"></center>
+	</div>
+
+	<form>
+		<h2><strong>Preencha as informações:</strong></h2 required>
+		<div class="input-group">
+			<div class="input-box">
+			<label for="nomepessoa">Nome:</label>
+			<input id="nomepessoa" type="text" name="firstname" placeholder="Digite seu nome..." id="nome" required>
+		    </div>
+		</div>
+		<div class="input-group">
+			<div class="input-box"><br>
+		<label for="pedido">Preencha seu pedido:</label>
+		</div>
+		     </div>
+		</div>
+			<div class="input-group">
+				<div class="input-box">
+				<label>Tipo de doces:</label>
+				<select id="doces">
+				<option select disabled value="">Selecione</option>	
+				<option value="bolopotemorango">Bolo no pote de morango: R$ 15,00</option>
+				<option value="bolopotechoco">Bolo no pote de chocolate: R$ 15,00</option>
+				<option value="banoffe">Banoffe: R$ 25,00</option>
+				<option value="cheesecake">Cheesecake: R$ 20,00</option>
+				<option value="copofelicidade">Copo da felicidade Laka e Oreo: 30,00</option>
+				<option value="donuts">Donuts de chocolate: 12,00</option>
+				<option value="feliciadetravessa">Felicidade na travessa: 20,50</option>
+				<option value="torta">Torta Alemã: 18,00</option>
+				<option value="brownie">Brownie: 10,99</option>
+				<option value="moussemarac">Mousse de Maracujá: R$ 12,00</option>
+				<option value="moussechoco">Mousse de Chocolate: R$ 12,00</option>
+				<option value="petit">Petit gateau: R$ 20,00</option>
+				<option value="wafflemorang">Waffle com geleia de morango: R$ 29,99</option>
+				<option value="wafflechoco">Waffle com chocolate: R$ 29,99</option>
+				<option value="cupcake">Cupcake de chocolate: R$ 10,00</option>
+				<option value="cupcake">Cupcake de morango: R$ 10,00</option>
+				</select>
+			</div>
+		</div> 
+
+		<div class="input-group">
+			<div class="input-box">
+			<label>Tamanho do doce:</label>
+			<select id="tamanho">
+			<option select disabled value="">Selecione</option>	
+			<option value="p">P</option>
+			<option value="m">M</option>
+			<option value="p">G</option>
+			</select>
+		</div>
+		</div>
+
+	    </div>
+		    </div>
+			<div class="input-group">
+				<div class="input-box">
+				<label>Tipo de salgados:</label>
+				<select id="salgado">
+				<option select disabled value="">Selecione</option>	
+				<option value="coxinhafrango">Coxinha de frango: R$ 10,00</option>
+				<option value="coxinhacharque">Coxinha de charque: R$ 14,00</option>
+				<option value="croissantfrango">Croissant de frango: R$ 18,00</option>
+				<option value="croissantcarne">Croissant de carne: R$ 19,50</option>
+				<option value="croissantqueijo">Croissant de 4 queijos: R$ 21,50</option>
+			    </select>
+			</div>
+			</div>
+
+			<div class="input-group">
+				<div class="input-box">
+				<label>Bebidas:</label>
+				<select id="bebidas">
+				<option select disabled value="">Selecione</option>	
+				<option value="agua">Água</option>
+				<option value="aguagas">Água com gás</option>
+				<option value="coca">Coca cola</option>
+				<option value="fanta">Fanta</option>
+			  </select>
+			  </div>   
+		    </div>
+
+		<div>
+			<br>
+			<div class="input-group">
+				<div class="input-box">
+			<label>Obeservação:</label>
+			<textarea id="observacao" type="text" style="width: 26em" class="obs" row=6 id="observacao" name="observacao"></textarea>
+		</div>
+			</div>
+		</div>
+          <div class="pedido-button">
+			<br>
+			<br>
+	       <center> <button type="submit" id="submit">
+                Realizar pedido!
+		    </button> 
+		</center>
+		  </div>
+	</form>
+
+
+
+
+    <script>
+		let newWorker;
+		if ('serviceWorker' in navigator) {
+		  navigator.serviceWorker.register('./service-work.js').then(reg => {
+			reg.addEventListener('updatefound', () => {
+			  // A wild service worker has appeared in reg.installing!
+			  newWorker = reg.installing;
+			  newWorker.addEventListener('statechange', () => {
+				// Has network.state changed?
+				switch (newWorker.state) {
+				  case 'installed':
+					if (navigator.serviceWorker.controller) {
+					  // new update available
+					}
+					// No update available
+					break;
+				}
+			  });
+			});
+		  });
+		  let refreshing;
+		  navigator.serviceWorker.addEventListener('controllerchange', function () {
+			if (refreshing) return;
+			window.location.reload();
+			refreshing = true;
+		  });
+		}
+	</script>
+
+</body>
